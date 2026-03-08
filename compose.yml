@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  project01:
+    image: quay.io/jupyter/pyspark-notebook:2025-12-31
+    container_name: spark-etl
+    ports:
+      - "8888:8888"
+      - "4040:4040"
+    volumes:
+      - ./notebooks/:/home/jovyan/notebooks
+      - ./data/:/home/jovyan/data
+      - ./state/:/home/jovyan/state
+    environment:
+      - JUPYTER_TOKEN=bdm
+      - PYSPARK_PYTHON=python3
+    command: >
+      start-notebook.py
+      --ServerApp.token=bdm
+      --ServerApp.password=''
+      --ServerApp.allow_origin='*'
+      --ServerApp.allow_remote_access=True
